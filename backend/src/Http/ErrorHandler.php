@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http;
 
+use App\AppFactory;
 use App\Environment;
 use App\Exception\NotLoggedInException;
 use App\Exception\PermissionDeniedException;
@@ -22,6 +23,9 @@ use Throwable;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
+/**
+ * @phpstan-import-type AppWithContainer from AppFactory
+ */
 final class ErrorHandler extends SlimErrorHandler
 {
     private bool $showDetailed = false;
@@ -30,6 +34,12 @@ final class ErrorHandler extends SlimErrorHandler
 
     private bool $returnJson = false;
 
+    /**
+     * @param View $view
+     * @param EnableSession $injectSession
+     * @param AppWithContainer $app
+     * @param Logger $logger
+     */
     public function __construct(
         private readonly View $view,
         private readonly EnableSession $injectSession,
