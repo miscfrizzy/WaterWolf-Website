@@ -1,0 +1,97 @@
+{% extends "layouts/dashboard.twig" %}
+
+{% import "macros/breadcrumbs.twig" as breadcrumbs %}
+
+{% block head %}
+    {{ parent() }}
+
+    <script>
+        function doFilter(filter, selector) {
+            if (filter === '') {
+                $(selector).removeClass('d-none');
+            } else {
+                $(selector).each(function() {
+                    const searchData = $.map(
+                            $(this).find('.search'),
+                            function(element) {
+                                return $(element).text()
+                            }
+                    ).join(' ');
+
+                    if (!searchData.toUpperCase().includes(filter)) {
+                        $(this).addClass('d-none');
+                    } else {
+                        $(this).removeClass('d-none');
+                    }
+                });
+            }
+        }
+
+        function filterTable(event) {
+            doFilter(
+                    event.target.value.toUpperCase(),
+                    '#data_table tbody tr'
+            );
+        }
+
+        ready(() => {
+            document.querySelector('#search_input').addEventListener('load', filterTable, false);
+            document.querySelector('#search_input').addEventListener('keyup', filterTable, false);
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    {{ breadcrumbs.body(
+        {
+            'dashboard': 'My Dashboard'
+        },
+        'Spotlighted Worlds'
+    ) }}
+
+    <h1>Spotlighted Worlds</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+                <div class="flex-fill">
+                    <input id="search_input" class="form-control" value="" type="text" Placeholder="Search..." />
+                </div>
+                <div class="ms-3 flex-shrink-0">
+                    <a href="{{ urlFor('dashboard:admin:worlds:create') }}" class="btn btn btn-success">
+                        Add New Spotlighted World
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-sm table-striped table-bordered align-middle mb-0" id="data_table">
+                <thead>
+                <tr>
+                    <th scope="col" style="width:15%">Image</th>
+                    <th scope="col" style="width:70%">World Name</th>
+                    <th scope="col" style="width:15%">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in worlds %}
+                    <tr>
+                        <td>
+                            <img src="{{ mediaUrl(row.image) }}" style="max-width: 128px;">
+                        </td>
+                        <th class="search" scope="row">{{ row.title }}</th>
+                        <td>
+                            <a href="{{ urlFor('world', {id: row.id}) }}" class="btn btn-secondary btn-sm">
+                                View
+                            </a>
+                            <a href="{{ urlFor('dashboard:admin:worlds:delete', {id: row.id}) }}"
+                               class="btn btn-danger btn-sm" data-confirm-danger="Remove world?">
+                                <i class="bi-trash" aria-hidden="true"></i> Remove
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

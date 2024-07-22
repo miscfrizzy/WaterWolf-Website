@@ -37,11 +37,23 @@ return function (Slim\App $app) {
                 ->setName('dashboard');
 
             $group->group('/admin', function (RouteCollectorProxy $group) {
-                $group->map(
-                    ['GET', 'POST'],
-                    '/add_world',
-                    App\Controller\Dashboard\Admin\AddWorldAction::class
-                )->setName('dashboard:admin:add_world');
+                $group->group('/worlds', function (RouteCollectorProxy $group) {
+                    $group->get(
+                        '',
+                        App\Controller\Dashboard\Admin\WorldsController::class . ':listAction'
+                    )->setName('dashboard:admin:worlds');
+
+                    $group->map(
+                        ['GET', 'POST'],
+                        '/create',
+                        App\Controller\Dashboard\Admin\WorldsController::class . ':createAction'
+                    )->setName('dashboard:admin:worlds:create');
+
+                    $group->get(
+                        '/delete[/{id}]',
+                        App\Controller\Dashboard\Admin\WorldsController::class . ':deleteAction'
+                    )->setName('dashboard:admin:worlds:delete');
+                });
 
                 $group->get(
                     '/users',
