@@ -1,0 +1,37 @@
+{% extends "layouts/dashboard.twig" %}
+
+{% import "macros/breadcrumbs.twig" as breadcrumbs %}
+
+{% block content %}
+    {{ breadcrumbs.body(
+        {
+            'dashboard': 'My Dashboard',
+            'dashboard:admin:worlds': 'Spotlighted Worlds'
+        },
+        'Add New Spotlighted World'
+    ) }}
+
+    <h1>Spotlighted Worlds</h1>
+
+    <div class="card">
+        <h2 class="card-header">
+            Add New Spotlighted World
+        </h2>
+        <div class="card-body">
+            {% if error %}
+                <div class="alert alert-danger">
+                    <b>Error:</b> {{ error }}
+                </div>
+            {% endif %}
+
+            <form action="" method="post">
+                <div class="form-label-group mb-2">
+                    <label for="id">VRChat World ID:</label>
+                    <input class="form-control form-control-secondary" type="text" id="id" name="id" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit to Database</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

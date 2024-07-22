@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use DI\Container;
 use DI\ContainerBuilder;
 use Monolog\ErrorHandler;
 use Monolog\Logger;
@@ -11,8 +12,14 @@ use Psr\Container\ContainerInterface;
 use Slim\App as SlimApp;
 use Symfony\Component\Console\Application as ConsoleApplication;
 
+/**
+ * @phpstan-type AppWithContainer SlimApp<Container>
+ */
 final class AppFactory
 {
+    /**
+     * @return AppWithContainer
+     */
     public static function createApp(): SlimApp
     {
         self::applyPhpSettings();
