@@ -44,22 +44,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for row in shortUrls %}
-                <tr>
-                    <th scope="col"><code>{{ row.short_url }}</code></th>
-                    <td>{{ row.long_url }}</td>
-                    <td>{{ row.views }}</td>
-                    <td class="text-nowrap">
-                        <a class="btn btn-sm btn-warning"
-                           href="{{ urlFor('dashboard:short_urls:edit', {id: row.id}) }}">
-                            Edit
-                        </a>
-                        <a class="btn btn-sm btn-danger"
-                           href="{{ urlFor('dashboard:short_urls:delete', {id: row.id}) }}">
-                            Delete
-                        </a>
-                    </td>
-                </tr>
+                {% for row in records %}
+                    <tr>
+                        <th scope="col"><code>{{ row.short_url }}</code></th>
+                        <td>{{ row.long_url }}</td>
+                        <td>{{ row.views }}</td>
+                        <td class="text-nowrap">
+                            <a class="btn btn-sm btn-warning"
+                               href="{{ urlFor('dashboard:short_urls:edit', {id: row.id}) }}">
+                                Edit
+                            </a>
+                            <a class="btn btn-sm btn-danger"
+                               href="{{ urlFor('dashboard:short_urls:delete', {id: row.id}) }}">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

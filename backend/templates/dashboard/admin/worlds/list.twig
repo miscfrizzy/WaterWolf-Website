@@ -33,7 +33,7 @@
             </div>
 
             <table class="table table-sm table-striped table-bordered align-middle mb-0" id="data_table"
-                data-order="[[1, &quot;asc&quot;]]">
+                   data-order="[[1, &quot;asc&quot;]]">
                 <thead>
                 <tr>
                     <th data-dt-order="disable" scope="col" style="width:15%">Image</th>
@@ -42,10 +42,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for row in worlds %}
+                {% for row in records %}
                     <tr>
                         <td>
-                            <img src="{{ mediaUrl(row.image) }}" alt="World Image" loading="lazy" style="max-width: 128px;">
+                            <img src="{{ mediaUrl(row.image) }}" alt="World Image" loading="lazy"
+                                 style="max-width: 128px;">
                         </td>
                         <th class="search" scope="row">{{ row.title }}</th>
                         <td>

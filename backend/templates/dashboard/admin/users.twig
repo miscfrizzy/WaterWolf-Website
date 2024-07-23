@@ -40,46 +40,46 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for row in users %}
-                <tr>
-                    <th class="search" scope="row">{{ row.id }}</th>
-                    <td class="search">{{ row.username }}</td>
-                    {% if row.is_admin is same as 1 %}
-                        <td class="text-bg-success">Yes</td>
-                    {% else %}
-                        <td class="text-muted">No</td>
-                    {% endif %}
-                    {% if row.is_mod is same as 1 %}
-                        <td class="text-bg-success">Yes</td>
-                    {% else %}
-                        <td class="text-muted">No</td>
-                    {% endif %}
-                    {% if row.is_team is same as 1 %}
-                        <td class="text-bg-success">Yes</td>
-                    {% else %}
-                        <td class="text-muted">No</td>
-                    {% endif %}
-                    {% if row.is_dj is same as 1 %}
-                        <td class="text-bg-success">Yes</td>
-                    {% else %}
-                        <td class="text-muted">No</td>
-                    {% endif %}
-                    {% if row.banned is same as 1 %}
-                        <td class="text-bg-danger">Yes</td>
-                    {% else %}
-                        <td class="text-muted">No</td>
-                    {% endif %}
-                    <td>
-                        <a href="{{ urlFor('dashboard:profile', {id: row.id}) }}"
-                           class="btn btn-primary btn-sm">
-                            Edit
-                        </a>
-                        <a href="{{ urlFor('profile', {user: row.username}) }}"
-                           class="btn btn-secondary btn-sm">
-                            View
-                        </a>
-                    </td>
-                </tr>
+                {% for row in records %}
+                    <tr>
+                        <th class="search" scope="row">{{ row.id }}</th>
+                        <td class="search">{{ row.username }}</td>
+                        {% if row.is_admin is same as 1 %}
+                            <td class="text-bg-success">Yes</td>
+                        {% else %}
+                            <td class="text-muted">No</td>
+                        {% endif %}
+                        {% if row.is_mod is same as 1 %}
+                            <td class="text-bg-success">Yes</td>
+                        {% else %}
+                            <td class="text-muted">No</td>
+                        {% endif %}
+                        {% if row.is_team is same as 1 %}
+                            <td class="text-bg-success">Yes</td>
+                        {% else %}
+                            <td class="text-muted">No</td>
+                        {% endif %}
+                        {% if row.is_dj is same as 1 %}
+                            <td class="text-bg-success">Yes</td>
+                        {% else %}
+                            <td class="text-muted">No</td>
+                        {% endif %}
+                        {% if row.banned is same as 1 %}
+                            <td class="text-bg-danger">Yes</td>
+                        {% else %}
+                            <td class="text-muted">No</td>
+                        {% endif %}
+                        <td>
+                            <a href="{{ urlFor('dashboard:profile', {id: row.id}) }}"
+                               class="btn btn-primary btn-sm">
+                                Edit
+                            </a>
+                            <a href="{{ urlFor('profile', {user: row.username}) }}"
+                               class="btn btn-secondary btn-sm">
+                                View
+                            </a>
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
