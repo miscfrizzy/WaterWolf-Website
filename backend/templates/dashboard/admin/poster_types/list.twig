@@ -37,8 +37,8 @@
             <table class="table table-striped table-bordered table-hover align-middle" id="data_table">
                 <thead>
                 <tr>
-                    <th>Group ID</th>
-                    <th>Group Name</th>
+                    <th>Poster Type ID</th>
+                    <th>Poster Type Description</th>
                     <th data-dt-order="disable" style="width:15%">Actions</th>
                 </tr>
                 </thead>
@@ -46,7 +46,7 @@
                 {% for row in records %}
                     <tr>
                         <td><code>{{ row.id }}</code></td>
-                        <th scope="col">{{ row.name }}</th>
+                        <th scope="col">{{ row.description }}</th>
                         <td class="text-nowrap">
                             <a class="btn btn-sm btn-warning"
                                href="{{ urlFor('dashboard:admin:poster_types:edit', {id: row.id}) }}">

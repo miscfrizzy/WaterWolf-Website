@@ -32,10 +32,10 @@ final class PosterTypesController extends AbstractCrudController
             }
         }
 
-        $row['name'] = $postData['name'] ?? null;
+        $row['description'] = $postData['description'] ?? null;
 
-        if (empty($row['name'])) {
-            throw new \InvalidArgumentException('Name is required.');
+        if (empty($row['description'])) {
+            throw new \InvalidArgumentException('Description is required.');
         }
 
         return $row;
