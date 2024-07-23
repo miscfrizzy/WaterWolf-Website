@@ -26,6 +26,7 @@ final readonly class TalentAction
                 JOIN web_users u ON s.creator = u.id
                 WHERE u.banned != 1
                 GROUP BY skill
+                ORDER BY occurrences DESC
             SQL
         );
 
