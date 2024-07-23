@@ -1,34 +1,15 @@
-// Frontend styling
 import "~/scss/style.scss";
 
-// Frontend JS
 import * as bootstrap from "bootstrap";
 import $ from "jquery";
 
-// Custom functions
-import passwordStrength from './js/passwordStrength.js';
 import {confirmDanger} from './js/sweetalert.js';
-import {
-    dateTimeToDateTimeString,
-    dateTimeToRelative,
-    dateTimeToTimeString,
-    nowToDateTime,
-    timestampToDateTime,
-} from './js/dateTimeUtils.js';
 
 window.bootstrap = bootstrap;
 
 window.jQuery = window.$ = $;
 
-window.passwordStrength = passwordStrength;
-
 window.confirmDanger = confirmDanger;
-
-window.nowToDateTime = nowToDateTime;
-window.timestampToDateTime = timestampToDateTime;
-window.dateTimeToDateTimeString = dateTimeToDateTimeString;
-window.dateTimeToTimeString = dateTimeToTimeString;
-window.dateTimeToRelative = dateTimeToRelative;
 
 const ready = (callback) => {
     if (document.readyState !== "loading") callback();

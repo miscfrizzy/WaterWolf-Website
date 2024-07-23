@@ -3,6 +3,8 @@
 {% block head %}
     {{ parent() }}
 
+    {{ renderAssets('frontend/passwordStrength.js') }}
+
     <script>
         ready(() => {
             passwordStrength();

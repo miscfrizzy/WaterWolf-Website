@@ -3,6 +3,8 @@
 {% block head %}
     {{ parent() }}
 
+    {{ renderAssets('frontend/dateTime.js') }}
+
     <script>
         ready(() => {
             const tz = {{ tz|json_encode|raw }};

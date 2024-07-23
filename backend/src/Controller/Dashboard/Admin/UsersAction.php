@@ -31,7 +31,7 @@ final readonly class UsersAction
             $response,
             'dashboard/admin/users',
             [
-                'users' => $users,
+                'records' => $users,
             ]
         );
     }

@@ -5,38 +5,11 @@
 {% block head %}
     {{ parent() }}
 
+    {{ renderAssets('frontend/dataTable.js') }}
+
     <script>
-        function doFilter(filter, selector) {
-            if (filter === '') {
-                $(selector).removeClass('d-none');
-            } else {
-                $(selector).each(function() {
-                    const searchData = $.map(
-                            $(this).find('.search'),
-                            function(element) {
-                                return $(element).text()
-                            }
-                    ).join(' ');
-
-                    if (!searchData.toUpperCase().includes(filter)) {
-                        $(this).addClass('d-none');
-                    } else {
-                        $(this).removeClass('d-none');
-                    }
-                });
-            }
-        }
-
-        function filterTable(event) {
-            doFilter(
-                    event.target.value.toUpperCase(),
-                    '#data_table tbody tr'
-            );
-        }
-
         ready(() => {
-            document.querySelector('#search_input').addEventListener('load', filterTable, false);
-            document.querySelector('#search_input').addEventListener('keyup', filterTable, false);
+            let dataTable = new DataTable('#data_table');
         });
     </script>
 {% endblock %}
@@ -53,33 +26,30 @@
 
     <div class="card">
         <div class="card-body">
-            <div class="d-flex align-items-center mb-3">
-                <div class="flex-fill">
-                    <input id="search_input" class="form-control" value="" type="text" Placeholder="Search..." />
-                </div>
-                <div class="ms-3 flex-shrink-0">
-                    <a href="{{ urlFor('dashboard:admin:worlds:create') }}" class="btn btn btn-success">
-                        Add New Spotlighted World
-                    </a>
-                </div>
+            <div class="buttons mb-3">
+                <a href="{{ urlFor('dashboard:admin:worlds:create') }}" class="btn btn-lg btn-success">
+                    <i class="bi-plus-circle-fill"></i> Add New Spotlighted World
+                </a>
             </div>
 
-            <table class="table table-sm table-striped table-bordered align-middle mb-0" id="data_table">
+            <table class="table table-sm table-striped table-bordered align-middle mb-0" id="data_table"
+                   data-order="[[1, &quot;asc&quot;]]">
                 <thead>
                 <tr>
-                    <th scope="col" style="width:15%">Image</th>
+                    <th data-dt-order="disable" scope="col" style="width:15%">Image</th>
                     <th scope="col" style="width:70%">World Name</th>
-                    <th scope="col" style="width:15%">Actions</th>
+                    <th data-dt-order="disable" scope="col" style="width:15%">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for row in worlds %}
+                {% for row in records %}
                     <tr>
                         <td>
-                            <img src="{{ mediaUrl(row.image) }}" style="max-width: 128px;">
+                            <img src="{{ mediaUrl(row.image) }}" alt="World Image" loading="lazy"
+                                 style="max-width: 128px;">
                         </td>
                         <th class="search" scope="row">{{ row.title }}</th>
-                        <td>
+                        <td class="text-nowrap">
                             <a href="{{ urlFor('world', {id: row.id}) }}" class="btn btn-secondary btn-sm">
                                 View
                             </a>
