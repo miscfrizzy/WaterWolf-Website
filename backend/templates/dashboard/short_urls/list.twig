@@ -2,6 +2,18 @@
 
 {% import "macros/breadcrumbs.twig" as breadcrumbs %}
 
+{% block head %}
+    {{ parent() }}
+
+    {{ renderAssets('frontend/dataTable.js') }}
+
+    <script>
+        ready(() => {
+            let dataTable = new DataTable('#data_table');
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
     {{ breadcrumbs.body(
         {
@@ -22,13 +34,13 @@
                 </a>
             </div>
 
-            <table class="table table-striped table-bordered table-hover align-middle">
+            <table class="table table-striped table-bordered table-hover align-middle" id="data_table">
                 <thead>
                 <tr>
                     <th>Short URL</th>
                     <th>Long URL</th>
                     <th>Views</th>
-                    <th>Actions</th>
+                    <th data-dt-order="disable">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
