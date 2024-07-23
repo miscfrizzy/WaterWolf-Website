@@ -104,8 +104,9 @@ final readonly class VrcApi
             // URLs in the form of:
             // https://vrchat.com/home/launch?worldId=wrld_4cf554b4-430c-4f8f-b53e-1f294eed230b&...
             $queryParams = Query::parse($uri->getQuery());
-            if (!empty($queryParams['worldid'])) {
-                return trim($queryParams['worldid']);
+
+            if (!empty($queryParams['worldId'])) {
+                return trim($queryParams['worldId']);
             }
         }
 
