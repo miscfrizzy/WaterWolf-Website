@@ -1,0 +1,63 @@
+{% extends "layouts/dashboard.twig" %}
+
+{% import "macros/breadcrumbs.twig" as breadcrumbs %}
+
+{% block content %}
+    {{ breadcrumbs.body(
+        {
+            'dashboard': 'My Dashboard',
+            'dashboard:admin:poster_types': 'Manage Poster Types'
+        },
+        (isEditMode) ? 'Edit Poster Type' : 'Create Poster Type'
+    ) }}
+
+    <h1>Manage Poster Types</h1>
+
+    <div class="card">
+        <h2 class="card-header">
+            {% if isEditMode %}
+                Edit Poster Type
+            {% else %}
+                Create Poster Type
+            {% endif %}
+        </h2>
+        <div class="card-body">
+            {% if error %}
+                <div class="alert alert-danger">
+                    <b>Error:</b> {{ error }}
+                </div>
+            {% endif %}
+
+            <form action="" method="POST">
+                <div class="row mb-3">
+                    <div class="col-md-8">
+                        {% if not isEditMode %}
+                            <div class="control-group mb-3">
+                                <label for="id" class="form-label">Poster Type ID:</label>
+                                <input type="text" name="id" id="id"
+                                       value="{{ row.id|default('')|e('html_attr') }}"
+                                       class="form-control form-control-lg" required maxlength="50">
+
+                                <p class="form-text">
+                                    The programmatic ID of the poster type. Should be only letters, numbers and
+                                    underscores (i.e. <code>my_poster_type_1</code>).
+                                </p>
+                            </div>
+                        {% endif %}
+
+                        <div class="control-group">
+                            <label for="name" class="form-label">Type Name:</label>
+                            <input type="text" name="name" id="name"
+                                   value="{{ row.name|default('')|e('html_attr') }}"
+                                   class="form-control form-control-lg" required maxlength="255">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button type="submit" class="btn btn-lg btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

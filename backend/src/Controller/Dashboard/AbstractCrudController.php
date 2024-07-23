@@ -51,8 +51,6 @@ abstract class AbstractCrudController
             try {
                 $row = $this->modifyFromRequest($request);
 
-                unset($row[$this->idField]);
-
                 $this->db->insert($this->tableName, $row);
 
                 $request->getFlash()->success(sprintf('%s created.', $this->itemName));

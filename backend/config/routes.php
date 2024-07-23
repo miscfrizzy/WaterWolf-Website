@@ -37,6 +37,59 @@ return function (Slim\App $app) {
                 ->setName('dashboard');
 
             $group->group('/admin', function (RouteCollectorProxy $group) {
+                $group->group('/groups', function (RouteCollectorProxy $group) {
+                    $group->get(
+                        '',
+                        App\Controller\Dashboard\Admin\GroupsController::class . ':listAction'
+                    )->setName('dashboard:admin:groups');
+
+                    $group->map(
+                        ['GET', 'POST'],
+                        '/create',
+                        App\Controller\Dashboard\Admin\GroupsController::class . ':createAction'
+                    )->setName('dashboard:admin:groups:create');
+
+                    $group->map(
+                        ['GET', 'POST'],
+                        '/edit[/{id}]',
+                        App\Controller\Dashboard\Admin\GroupsController::class . ':editAction'
+                    )->setName('dashboard:admin:groups:edit');
+
+                    $group->get(
+                        '/delete[/{id}]',
+                        App\Controller\Dashboard\Admin\GroupsController::class . ':deleteAction'
+                    )->setName('dashboard:admin:groups:delete');
+                });
+
+                $group->group('/poster_types', function (RouteCollectorProxy $group) {
+                    $group->get(
+                        '',
+                        App\Controller\Dashboard\Admin\PosterTypesController::class . ':listAction'
+                    )->setName('dashboard:admin:poster_types');
+
+                    $group->map(
+                        ['GET', 'POST'],
+                        '/create',
+                        App\Controller\Dashboard\Admin\PosterTypesController::class . ':createAction'
+                    )->setName('dashboard:admin:poster_types:create');
+
+                    $group->map(
+                        ['GET', 'POST'],
+                        '/edit[/{id}]',
+                        App\Controller\Dashboard\Admin\PosterTypesController::class . ':editAction'
+                    )->setName('dashboard:admin:poster_types:edit');
+
+                    $group->get(
+                        '/delete[/{id}]',
+                        App\Controller\Dashboard\Admin\PosterTypesController::class . ':deleteAction'
+                    )->setName('dashboard:admin:poster_types:delete');
+                });
+
+                $group->get(
+                    '/users',
+                    App\Controller\Dashboard\Admin\UsersAction::class
+                )->setName('dashboard:admin:users');
+
                 $group->group('/worlds', function (RouteCollectorProxy $group) {
                     $group->get(
                         '',
@@ -54,11 +107,6 @@ return function (Slim\App $app) {
                         App\Controller\Dashboard\Admin\WorldsController::class . ':deleteAction'
                     )->setName('dashboard:admin:worlds:delete');
                 });
-
-                $group->get(
-                    '/users',
-                    App\Controller\Dashboard\Admin\UsersAction::class
-                )->setName('dashboard:admin:users');
             })->add(new App\Middleware\Auth\RequireAdmin());
 
             $group->map(

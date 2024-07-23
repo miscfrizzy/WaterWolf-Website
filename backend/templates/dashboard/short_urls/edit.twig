@@ -22,6 +22,12 @@
             {% endif %}
         </h2>
         <div class="card-body">
+            {% if error %}
+                <div class="alert alert-danger">
+                    <b>Error:</b> {{ error }}
+                </div>
+            {% endif %}
+            
             <form action="" method="POST">
                 <div class="row">
                     <div class="col-md-8">
