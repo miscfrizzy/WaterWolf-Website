@@ -5,38 +5,11 @@
 {% block head %}
     {{ parent() }}
 
+    {{ renderAssets('frontend/dataTable.js') }}
+
     <script>
-        function doFilter(filter, selector) {
-            if (filter === '') {
-                $(selector).removeClass('d-none');
-            } else {
-                $(selector).each(function() {
-                    const searchData = $.map(
-                        $(this).find('.search'),
-                        function(element) {
-                            return $(element).text()
-                        }
-                    ).join(' ');
-
-                    if (!searchData.toUpperCase().includes(filter)) {
-                        $(this).addClass('d-none');
-                    } else {
-                        $(this).removeClass('d-none');
-                    }
-                });
-            }
-        }
-
-        function filterTable(event) {
-            doFilter(
-                event.target.value.toUpperCase(),
-                '#data_table tbody tr'
-            );
-        }
-
         ready(() => {
-            document.querySelector('#search_input').addEventListener('load', filterTable, false);
-            document.querySelector('#search_input').addEventListener('keyup', filterTable, false);
+            let dataTable = new DataTable('#data_table');
         });
     </script>
 {% endblock %}
@@ -53,10 +26,6 @@
 
     <div class="card">
         <div class="card-body">
-            <input id="search_input" class="form-control" value="" type="text" Placeholder="Search..." />
-
-            <br>
-
             <table class="table table-sm table-striped table-bordered align-middle mb-0" id="data_table">
                 <thead>
                 <tr>
@@ -67,7 +36,7 @@
                     <th scope="col" style="width:10%">Team?</th>
                     <th scope="col" style="width:10%">DJ?</th>
                     <th scope="col" style="width:10%">Banned?</th>
-                    <th scope="col" style="width:15%">Actions</th>
+                    <th data-dt-order="disable" scope="col" style="width:15%">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
