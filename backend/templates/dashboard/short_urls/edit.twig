@@ -37,7 +37,7 @@
                             <label for="long_url" class="form-label">Original URL:</label>
                             <input type="text" name="long_url" id="long_url"
                                    value="{{ row.long_url|default('')|e('html_attr') }}"
-                                   class="form-control form-control-lg" required maxlength="128">
+                                   class="form-control form-control-lg" required>
                             <p class="form-text">You can use a relative (i.e. <code>/dashboard</code>) or an absolute
                                 (i.e. <code>https://example.com</code>) URL.</p>
                         </div>
