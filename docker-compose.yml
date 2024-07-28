@@ -16,8 +16,8 @@ services:
       MEDIA_SITE_URL: /media/site
     restart: always
     ports:
-      - "127.0.0.1:8080:8080"
-      - "127.0.0.1:5173:5173"
+      - "8080:8080"
+      - "5173:5173"
     logging: &default-logging
       options:
         max-size: "1m"
