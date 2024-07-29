@@ -23,7 +23,7 @@ RUN mkdir -p /var/app/www \
     && addgroup -g 1000 app \
     && adduser -u 1000 -G app -h /var/app/ -s /bin/sh -D app \
     && addgroup app www-data \
-    && mkdir -p /var/app/media /var/app/www /var/app/www_tmp /run/supervisord /logs \
+    && mkdir -p /var/app/media /var/app/www /var/app/ssl /var/app/www_tmp /run/supervisord /logs \
     && chown -R app:app /var/app /logs
 
 COPY --chown=app:app ./build/scripts/ /usr/local/bin

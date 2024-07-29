@@ -6,6 +6,8 @@
 
 # Local Dev/Editors
 /build/dev/db_full.sql
+/build/dev/ssl/*
+!/build/dev/ssl/.gitkeep
 /.idea
 /dev.env
 /docker-compose.override.yml

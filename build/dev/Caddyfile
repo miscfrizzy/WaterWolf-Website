@@ -6,6 +6,7 @@
 
 :8080 {
     root * /var/app/www/web
+    tls /var/app/ssl/ssl.crt /var/app/ssl/ssl.key
 
     encode gzip
     php_fastcgi 127.0.0.1:9000
