@@ -18,7 +18,8 @@ use Psr\SimpleCache\CacheInterface;
 use Slim\Factory\ServerRequestCreatorFactory;
 use Slim\Handlers\Strategies\RequestResponse;
 use Slim\Interfaces\RouteParserInterface;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Adapter\RedisAdapter;
+use Symfony\Component\Cache\Marshaller\DefaultMarshaller;
 use Symfony\Component\Cache\Psr16Cache;
 use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\Console\CommandLoader\ContainerCommandLoader;
@@ -158,12 +159,28 @@ return [
     // Filesystem Utilities
     Filesystem::class => static fn() => new Filesystem(),
 
+    // Redis
+    Redis::class => static function () {
+        $settings = Environment::getRedisSettings();
+
+        $instance = new Redis();
+        if (isset($settings['socket'])) {
+            $instance->connect($settings['socket']);
+        } else {
+            $instance->connect($settings['host'], $settings['port'], 15);
+        }
+
+        return $instance;
+    },
+
     // PSR-6 cache
     CacheItemPoolInterface::class => static function (
+        Redis $redis,
         Logger $logger
     ) {
-        $cacheInterface = new FilesystemAdapter(
-            directory: Environment::getTempDirectory() . '/cache'
+        $cacheInterface = new RedisAdapter(
+            $redis,
+            marshaller: new DefaultMarshaller(false)
         );
         $cacheInterface->setLogger($logger);
         return $cacheInterface;

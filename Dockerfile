@@ -7,7 +7,7 @@ ENV TZ=UTC
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
-RUN install-php-extensions @composer gd curl xml zip mbstring pdo_mysql apcu
+RUN install-php-extensions @composer gd curl xml zip mbstring pdo_mysql apcu redis
 
 RUN apk add --no-cache zip git curl bash \
     supervisor \

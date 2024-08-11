@@ -48,4 +48,12 @@ final class Environment
             'dbname' => $_ENV['MARIADB_DATABASE'],
         ];
     }
+
+    public static function getRedisSettings(): array
+    {
+        return [
+            'host' => $_ENV['REDIS_SERVER'] ?? 'localhost',
+            'port' => $_ENV['REDIS_PORT'] ?? 6379,
+        ];
+    }
 }

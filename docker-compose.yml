@@ -9,9 +9,10 @@ services:
     volumes:
       - .:/var/app/www
     env_file:
-        - dev.env
+      - dev.env
     environment:
       MARIADB_SERVER: db
+      REDIS_SERVER: redis
       PHP_MEDIA_PATH: /var/app/www/web/media/site
       MEDIA_SITE_URL: /media/site
     restart: always
@@ -30,6 +31,14 @@ services:
       - dev.env
     ports:
       - "127.0.0.1:13306:3306"
+    logging: *default-logging
+
+  redis:
+    image: registry.redict.io/redict
+    ports:
+      - 127.0.0.1:16379:6379
+    volumes:
+      - ./build/redis/redis.conf:/redict.conf:ro
     logging: *default-logging
 
 volumes:
