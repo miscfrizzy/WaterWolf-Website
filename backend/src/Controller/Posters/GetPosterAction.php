@@ -3,6 +3,7 @@
 namespace App\Controller\Posters;
 
 use App\Environment;
+use App\Exception\NotFoundException;
 use App\Http\Response;
 use App\Http\ServerRequest;
 use App\Media;
@@ -140,11 +141,9 @@ final readonly class GetPosterAction
             );
         }
 
-        // Default poster if no other image is found.
+        // Return 404 if poster image isn't found
         if (null === $image) {
-            $image = file_get_contents(
-                Environment::getBaseDirectory() . '/web/static/img/no_poster.jpg'
-            );
+            throw NotFoundException::poster($request);
         }
 
         $response->getBody()->write($image);
