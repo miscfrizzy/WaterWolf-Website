@@ -12,7 +12,6 @@
 <meta name="description" content="WaterWolf is a community in VRChat focused on building, exploring and promoting immersive and enjoyable worlds.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="WaterWolf">
-<meta property="og:url" content="https://waterwolf.club/">
 
 <meta property="og:description" content="Welcome to PrideVR,
 Where pride never ends if you gay hard enough! Join us for VRChat events, hangouts, and a vibrant discord community.
@@ -22,8 +21,11 @@ Where pride never ends if you gay hard enough! Join us for VRChat events, hangou
 <meta name="twitter:description" content="WaterWolf is a community in VRChat focused on building, exploring and promoting immersive and enjoyable worlds.">
 
 <!-- Good Potential Dynamic Meta Tag Content -->
-<meta property="og:image" content="https://waterwolf.club/static/img/amy_isaac.png">
-<meta name="twitter:image" content="https://waterwolf.club/static/img/amy_isaac.png">
+{% if is_production %}
+    <meta property="og:url" content="https://waterwolf.club/">
+    <meta property="og:image" content="https://waterwolf.club/static/img/amy_isaac.png">
+    <meta name="twitter:image" content="https://waterwolf.club/static/img/amy_isaac.png">
+{% endif %}
 <meta name="default_title" content="WaterWolf Community">
 <meta property="og:title" content="WaterWolf Community">
 <meta name="twitter:title" content="WaterWolf Community">
